@@ -1,4 +1,4 @@
-import { ESGProviderResponse } from '../types/api';
+import type { ESGProviderResponse } from '../types/api';
 
 /**
  * Industry-specific ESG score modifiers

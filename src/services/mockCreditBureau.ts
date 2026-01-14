@@ -1,4 +1,4 @@
-import { CreditBureauResponse } from '../types/api';
+import type { CreditBureauResponse } from '../types/api';
 
 /**
  * Simple hash function to generate deterministic values from SSN
