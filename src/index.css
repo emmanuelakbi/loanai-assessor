@@ -42,7 +42,60 @@ h1, .text-header {
   font-size: 14px;
 }
 
-/* Smooth transitions for interactive elements */
-button, a, input, select {
+/* Smooth transitions for interactive elements - Requirement 8.5 */
+/* 200ms ease transitions for all interactive elements */
+button, a, input, select, textarea {
   transition: all 200ms ease;
+}
+
+/* Card and container transitions */
+.transition-card {
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.transition-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Table row transitions */
+tr {
+  transition: background-color 200ms ease;
+}
+
+/* Generic interactive element transitions */
+.interactive {
+  transition: all 200ms ease;
+}
+
+/* Focus states with transitions */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  transition: outline 200ms ease;
+}
+
+/* Opacity transitions for show/hide elements */
+.transition-opacity {
+  transition: opacity 200ms ease;
+}
+
+/* Scale transitions for buttons and clickable elements */
+.transition-scale:active {
+  transform: scale(0.98);
+  transition: transform 200ms ease;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

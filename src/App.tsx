@@ -1,41 +1,39 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { DashboardScreen } from './screens/DashboardScreen';
+import { BorrowerInputScreen } from './screens/BorrowerInputScreen';
+import { APIScoringScreen } from './screens/APIScoringScreen';
+import { DecisionScreen } from './screens/DecisionScreen';
+import { BatchProcessorScreen } from './screens/BatchProcessorScreen';
+import { useAppStore } from './store/appStore';
 
-// Placeholder screen components - will be implemented in later tasks
-const DashboardScreen = () => (
-  <div className="p-8">
-    <h1 className="text-2xl font-semibold text-primary">Dashboard</h1>
-    <p className="mt-4 text-gray-600">Dashboard screen placeholder</p>
-  </div>
-);
+/**
+ * DecisionScreenWrapper - Connects DecisionScreen to the store and router
+ * 
+ * Requirements:
+ * - 4.6: WHEN a user clicks "New Assessment", THE LoanAI_System SHALL navigate back to the Borrower Input screen
+ */
+const DecisionScreenWrapper = () => {
+  const navigate = useNavigate();
+  const { currentAssessment, clearAssessment } = useAppStore();
 
-const BorrowerInputScreen = () => (
-  <div className="p-8">
-    <h1 className="text-2xl font-semibold text-primary">New Assessment</h1>
-    <p className="mt-4 text-gray-600">Borrower input screen placeholder</p>
-  </div>
-);
+  const handleNewAssessment = () => {
+    clearAssessment();
+    navigate('/new');
+  };
 
-const APIScoringScreen = () => (
-  <div className="p-8">
-    <h1 className="text-2xl font-semibold text-primary">Credit Assessment</h1>
-    <p className="mt-4 text-gray-600">API scoring screen placeholder</p>
-  </div>
-);
+  // If no assessment data, redirect to new assessment
+  if (!currentAssessment || !currentAssessment.compositeScore) {
+    return <Navigate to="/new" replace />;
+  }
 
-const DecisionScreen = () => (
-  <div className="p-8">
-    <h1 className="text-2xl font-semibold text-primary">Loan Decision</h1>
-    <p className="mt-4 text-gray-600">Decision screen placeholder</p>
-  </div>
-);
-
-const BatchProcessorScreen = () => (
-  <div className="p-8">
-    <h1 className="text-2xl font-semibold text-primary">Batch Processing</h1>
-    <p className="mt-4 text-gray-600">Batch processor screen placeholder</p>
-  </div>
-);
+  return (
+    <DecisionScreen
+      assessment={currentAssessment}
+      onNewAssessment={handleNewAssessment}
+    />
+  );
+};
 
 function App() {
   return (
@@ -52,7 +50,7 @@ function App() {
           <Route path="/scoring" element={<APIScoringScreen />} />
 
           {/* Decision and loan terms */}
-          <Route path="/decision" element={<DecisionScreen />} />
+          <Route path="/decision" element={<DecisionScreenWrapper />} />
 
           {/* Batch processing */}
           <Route path="/batch" element={<BatchProcessorScreen />} />

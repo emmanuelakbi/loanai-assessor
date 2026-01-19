@@ -10,7 +10,7 @@ const NavItem = ({ to, icon, label }: NavItemProps) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
-      `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+      `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary ${
         isActive
           ? 'bg-white/20 text-white font-medium'
           : 'text-white/80 hover:bg-white/10 hover:text-white'
